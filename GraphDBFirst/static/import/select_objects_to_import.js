@@ -1,14 +1,3 @@
-var selected = ""
-function selectedText(e){
-  // console.log(window.getSelection().toString())
-  var j = window.getSelection().toString()
-  console.log(j);
-  if( j != selected && j != ""){
-    alert(j);
-  }
-  selected = j;
-
-}
 var articleItemClassName = 'article';
 var menu = document.querySelector(".context-menu");
 var classifyText = document.getElementById("to-classify-text");
@@ -51,11 +40,14 @@ function contextListener() {
  * Turns the custom context menu on.
  */
 function toggleMenuOn() {
-  if ( menuState !== 1 ) {
-    menuState = 1;
-    menu.classList.add(activeClassName);
-    classifyText.textContent = window.getSelection().toString();
-    // console.log(window.getSelection().toString());
+  var selectedT = window.getSelection().toString().trim();
+  if(selectedT){
+    if ( menuState !== 1 ) {
+      menuState = 1;
+      menu.classList.add(activeClassName);
+      classifyText.textContent = window.getSelection().toString();
+      // console.log(window.getSelection().toString());
+    }
   }
 }
 
@@ -147,6 +139,21 @@ function positionMenu(e) {
     menu.style.top = clickCoordsY + "px";
   }
 }
+function labelButton(e){
+  var label = this.innerText;
+  if(label == "Actor"){
+    console.log("make Actor");
+  } else if(label == "Location"){
+    console.log("make Location");
+  } else if(label == "Country"){
+    console.log("make Country");
+  } else if(label == "Region"){
+    console.log("make Region");
+  } else if(label == "Source"){
+    console.log("make Source");
+  }
+
+}
 /**
  * Run the app.
  */
@@ -155,3 +162,4 @@ document.getElementById('article').addEventListener("contextmenu", function(e){
   e.preventDefault();
   toggleMenuOn();
 })
+document.querySelectorAll(".label-button ").forEach(item => item.addEventListener("click",labelButton));
