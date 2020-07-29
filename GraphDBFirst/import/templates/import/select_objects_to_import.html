@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Upload{% endblock %}
+{% load static %}
+{% block content %}
+<pre id="article" class="article">{{text}}</pre>
+
+<nav class="context-menu">
+  <ul class="context-menu__items">
+    <li class="context-menu__item">
+      <a href="#" class="context-menu__link">
+        <i class="fa fa-eye"></i> View Task
+      </a>
+    </li>
+    <li class="context-menu__item">
+      <a href="#" class="context-menu__link">
+        <i class="fa fa-edit"></i> Edit Task
+      </a>
+    </li>
+    <li class="context-menu__item">
+      <a href="#" class="context-menu__link">
+        <i class="fa fa-times"></i> Delete Task
+      </a>
+    </li>
+  </ul>
+</nav>
+<script type="text/javascript" src="{% static 'import/select_objects_to_import.js'%}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'import/select_objects_to_import.css'%}" />
+
+{% endblock %}
