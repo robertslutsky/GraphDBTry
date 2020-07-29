@@ -6,4 +6,31 @@
 
 .context-menu--active {
   display: block;
-  }
+  background-color: grey;
+}
+#to-classify-text{
+  text-align: center;
+}
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.vertical-menu {
+  width: 200px;
+  height: 150px;
+  overflow-y: auto;
+}
+
+.vertical-menu button:hover {
+  background-color: #ccc;
+}

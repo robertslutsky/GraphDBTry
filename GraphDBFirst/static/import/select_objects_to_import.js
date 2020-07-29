@@ -11,6 +11,7 @@ function selectedText(e){
 }
 var articleItemClassName = 'article';
 var menu = document.querySelector(".context-menu");
+var classifyText = document.getElementById("to-classify-text");
 var menuState = 0;
 var activeClassName = "context-menu--active";
 var menuPosition;
@@ -53,6 +54,8 @@ function toggleMenuOn() {
   if ( menuState !== 1 ) {
     menuState = 1;
     menu.classList.add(activeClassName);
+    classifyText.textContent = window.getSelection().toString();
+    // console.log(window.getSelection().toString());
   }
 }
 
@@ -104,7 +107,6 @@ function clickListener() {
 function getPosition(e) {
   var posx = 0;
   var posy = 0;
-  console.log(e.clientX);
   if (!e) var e = window.event;
 
   if (e.pageX || e.pageY) {
