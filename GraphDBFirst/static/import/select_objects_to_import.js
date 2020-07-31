@@ -19,6 +19,7 @@ windowHeight = window.innerHeight;
 /**
  * Initialise our application's code.
  */
+ //Menu
 function init() {
   contextListener();
   clickListener();
@@ -138,6 +139,7 @@ function positionMenu(e) {
     menu.style.top = clickCoordsY + "px";
   }
 }
+//end menu
 var token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
 var objectTable = document.getElementById("object-table");
 function labelButton(e){
@@ -155,27 +157,29 @@ function labelButton(e){
   nameCell.appendChild(nameInput);
   labelCell.appendChild(labelInput);
 }
-/**
- * Run the app.
- */
+
  function createObjectsInGraph(e){
+   var objectLabelPairs = [];
    for(var i = 1; i < objectTable.rows.length; i++){
      var row = objectTable.rows[i];
      var name = row.cells[0].firstChild.value;
      var label = row.cells[1].firstChild.value;
-     $.ajax({
-       method: "POST",
-       headers: { "X-CSRFToken": token },
-       url: '/import/ajax-create-object',
-       data: {
-         'name': name,
-         'label': label,
-       },
-       dataType: 'json',
-       async: false,
-       });
+     objectLabelPairs.push([name,label]);
    }
- }
+   $.ajax({
+     method: "POST",
+     headers: { "X-CSRFToken": token },
+     url: '/import/ajax-create-objects',
+     data: {
+       'object_label_pairs': JSON.stringify(objectLabelPairs),
+     },
+     dataType: 'json',
+     async: false,
+     });
+}
+/**
+ * Run the app.
+ */
 init();
 document.getElementById('article').addEventListener("contextmenu", function(e){
   e.preventDefault();
