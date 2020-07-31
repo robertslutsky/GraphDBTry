@@ -36,3 +36,8 @@
 .vertical-menu button:hover {
   background-color: #ccc;
 }
+table,th,td {
+   padding: 10px;
+   border: 1px solid black;
+   border-collapse: collapse;
+ }

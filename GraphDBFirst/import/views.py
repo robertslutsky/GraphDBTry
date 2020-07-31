@@ -17,6 +17,7 @@ def select_objects_to_import(request):
         return render(request, 'import/upload.html')
 
 def ajax_create_object(request):
+    print("hello")
     if(request.POST):
         if(request.POST["name"] and request.POST["label"]):
             stmt = "MERGE (n:"+request.POST["label"]+" {name: \""+request.POST["name"]+"\"})"
