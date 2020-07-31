@@ -45,7 +45,7 @@ function toggleMenuOn() {
     if ( menuState !== 1 ) {
       menuState = 1;
       menu.classList.add(activeClassName);
-      classifyText.textContent = window.getSelection().toString();
+      classifyText.value = window.getSelection().toString();
       // console.log(window.getSelection().toString());
     }
   }
@@ -139,20 +139,20 @@ function positionMenu(e) {
     menu.style.top = clickCoordsY + "px";
   }
 }
+var token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
 function labelButton(e){
-  var label = this.innerText;
-  if(label == "Actor"){
-    console.log("make Actor");
-  } else if(label == "Location"){
-    console.log("make Location");
-  } else if(label == "Country"){
-    console.log("make Country");
-  } else if(label == "Region"){
-    console.log("make Region");
-  } else if(label == "Source"){
-    console.log("make Source");
-  }
-
+  e.preventDefault();
+  var label = $(this).text();
+  $.ajax({
+    method: "POST",
+    headers: { "X-CSRFToken": token },
+    url: '/import/ajax-create-object',
+    data: {
+      'name': document.getElementById("to-classify-text").value,
+      'label':e.target.innerText,
+    },
+    dataType: 'json',
+    });
 }
 /**
  * Run the app.

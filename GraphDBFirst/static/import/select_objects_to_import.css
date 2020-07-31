@@ -10,6 +10,8 @@
 }
 #to-classify-text{
   text-align: center;
+  display: block;
+  margin: auto;
 }
 .label-button {
   background-color: #4CAF50;
