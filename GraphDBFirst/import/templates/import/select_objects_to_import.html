@@ -3,7 +3,15 @@
 {% load static %}
 {% block content %}
 <pre id="article" class="article">{{text}}</pre>
-
+<div>
+  <table id="object-table">
+    <tr>
+      <th>Name</th>
+      <th>Label</th>
+    </tr>
+  </table>
+  <button id="create-objects-button">Create Objects</button>
+</div>
 <nav class="context-menu">
   <div class="vertical-menu">
     <form method="post" id="myForm">

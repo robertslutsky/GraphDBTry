@@ -46,7 +46,6 @@ function toggleMenuOn() {
       menuState = 1;
       menu.classList.add(activeClassName);
       classifyText.value = window.getSelection().toString();
-      // console.log(window.getSelection().toString());
     }
   }
 }
@@ -140,26 +139,47 @@ function positionMenu(e) {
   }
 }
 var token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+var objectTable = document.getElementById("object-table");
 function labelButton(e){
   e.preventDefault();
   var label = $(this).text();
-  $.ajax({
-    method: "POST",
-    headers: { "X-CSRFToken": token },
-    url: '/import/ajax-create-object',
-    data: {
-      'name': document.getElementById("to-classify-text").value,
-      'label':e.target.innerText,
-    },
-    dataType: 'json',
-    });
+  var row = objectTable.insertRow();
+  var nameCell = row.insertCell(0);
+  var labelCell = row.insertCell(1);
+  var nameInput = document.createElement("INPUT");
+  nameInput.setAttribute("type", "text");
+  nameInput.setAttribute("value", classifyText.value);
+  var labelInput = document.createElement("INPUT");
+  labelInput.setAttribute("type", "text");
+  labelInput.setAttribute("value", e.target.innerText);
+  nameCell.appendChild(nameInput);
+  labelCell.appendChild(labelInput);
 }
 /**
  * Run the app.
  */
+ function createObjectsInGraph(e){
+   for(var i = 1; i < objectTable.rows.length; i++){
+     var row = objectTable.rows[i];
+     var name = row.cells[0].firstChild.value;
+     var label = row.cells[1].firstChild.value;
+     $.ajax({
+       method: "POST",
+       headers: { "X-CSRFToken": token },
+       url: '/import/ajax-create-object',
+       data: {
+         'name': name,
+         'label': label,
+       },
+       dataType: 'json',
+       async: false,
+       });
+   }
+ }
 init();
 document.getElementById('article').addEventListener("contextmenu", function(e){
   e.preventDefault();
   toggleMenuOn();
 })
 document.querySelectorAll(".label-button ").forEach(item => item.addEventListener("click",labelButton));
+document.getElementById("create-objects-button").addEventListener("click", createObjectsInGraph);
