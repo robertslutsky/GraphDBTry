@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Upload{% endblock %}
+{% block content %}
+<form method="POST" action="{% url 'select_objects_to_import' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+    <input  type="file" accept=".txt" name="file" value="" required>
+    <button type="submit">Upload</button>
+</form>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Upload{% endblock %}
+{% load static %}
+{% block content %}
+<pre id="article" class="article">{{text}}</pre>
+
+<nav class="context-menu">
+  <div class="vertical-menu">
+    <form method="post" id="myForm">
+      <div class="center-text"><input type="text" id="to-classify-text"></input></div>
+    {% csrf_token %}
+    <button class="label-button" href="#">Event</button>
+    <button class="label-button" href="#">Actor</button>
+    <button class="label-button" href="#">Location</button>
+    <button class="label-button" href="#">Region</button>
+    <button class="label-button" href="#">Country</button>
+    <button class="label-button" href="#">Source</button>
+    </form>
+  </div>
+</nav>
+<script type="text/javascript" src="{% static 'import/select_objects_to_import.js'%}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'import/select_objects_to_import.css'%}" />
+{% endblock %}

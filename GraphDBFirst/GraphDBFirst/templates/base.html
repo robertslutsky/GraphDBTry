@@ -1,0 +1,19 @@
+<!-- templates/base.html -->
+<!-- base html page -->
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <meta charset="utf-8">
+  <title>{% block title %}GraphDB{% endblock %}</title>
+</head>
+<body>
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+</body>
+<script>
+    var csrftoken = '{{ csrf_token }}';
+</script>
+</html>
