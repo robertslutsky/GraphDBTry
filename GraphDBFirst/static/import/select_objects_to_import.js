@@ -17,7 +17,7 @@ windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
 /**
- * Initialise our application's code.
+ * Initialise our application's code for the menu
  */
 function init() {
   contextListener();
@@ -140,6 +140,7 @@ function positionMenu(e) {
 }
 var token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
 var objectTable = document.getElementById("object-table");
+// handle label button press
 function labelButton(e){
   e.preventDefault();
   var label = $(this).text();
@@ -155,9 +156,7 @@ function labelButton(e){
   nameCell.appendChild(nameInput);
   labelCell.appendChild(labelInput);
 }
-/**
- * Run the app.
- */
+// create objects in the table
  function createObjectsInGraph(e){
    for(var i = 1; i < objectTable.rows.length; i++){
      var row = objectTable.rows[i];
