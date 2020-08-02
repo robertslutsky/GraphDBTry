@@ -7,3 +7,6 @@ class Article(models.Model):
 
 class NLPObject(models.Model):
     article = models.ForeignKey(Article,on_delete=models.CASCADE)
+    word = models.CharField(max_length=200)
+    beginningPos = models.IntegerField()
+    endPos = models.IntegerField()
