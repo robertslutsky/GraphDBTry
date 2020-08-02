@@ -156,28 +156,29 @@ function labelButton(e){
   nameCell.appendChild(nameInput);
   labelCell.appendChild(labelInput);
 }
-// create objects in the table
+
  function createObjectsInGraph(e){
-   for(var i = 1; i < objectTable.rows.length; i++){
-     var row = objectTable.rows[i];
-     var name = row.cells[0].firstChild.value;
-     var label = row.cells[1].firstChild.value;
-     $.ajax({
-       method: "POST",
-       headers: { "X-CSRFToken": token },
-       url: '/import/ajax-create-object',
-       data: {
-         'name': name,
-         'label': label,
-       },
-       dataType: 'json',
-       async: false,
-       });
-       if(name == row.cells[0].firstChild.getAttribute("value") && label == row.cells[1].firstChild.getAttribute("value")){
-         console.log(name+label);
-       }
-   }
- }
+  var objectLabelPairs = [];
+  for(var i = 1; i < objectTable.rows.length; i++){
+    var row = objectTable.rows[i];
+    var name = row.cells[0].firstChild.value;
+    var label = row.cells[1].firstChild.value;
+    objectLabelPairs.push([name,label]);
+    if(name == row.cells[0].firstChild.getAttribute("value") && label == row.cells[1].firstChild.getAttribute("value")){
+      console.log(name+label);
+    }
+  }
+  $.ajax({
+    method: "POST",
+    headers: { "X-CSRFToken": token },
+    url: '/import/ajax-create-objects',
+    data: {
+      'object_label_pairs': JSON.stringify(objectLabelPairs),
+    },
+    dataType: 'json',
+    async: false,
+    });
+}
 init();
 document.getElementById('article').addEventListener("contextmenu", function(e){
   e.preventDefault();

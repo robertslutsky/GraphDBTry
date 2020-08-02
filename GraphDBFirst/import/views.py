@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from neo4j import GraphDatabase
+import json
 driver = GraphDatabase.driver("neo4j://localhost:7687", auth=("neo4j", "password"))
 session = driver.session()
 
@@ -22,15 +23,13 @@ def select_objects_to_import(request):
 
 
 #creates object in Neo4j GraphDB
-def ajax_create_object(request):
-    if(request.POST):
-        if(request.POST["name"] and request.POST["label"]):
-            stmt = "MERGE (n:"+request.POST["label"]+" {name: \""+request.POST["name"]+"\"})"
-            print(stmt)
+def ajax_create_objects(request):
+    x = json.loads(request.POST["object_label_pairs"])
+    if x:
+        for name, label in x:
+            stmt = "MERGE (n:"+label+" {name: \""+name+"\"})"
             session.run(stmt)
             session.close()
-            return HttpResponse("success: object created")
-        else:
-            return HttpResponse("failed: object wasn't created")
+        return HttpResponse("Object Created")
     else:
         return HttpResponse("Are you lost")
