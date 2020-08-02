@@ -45,7 +45,7 @@ function toggleMenuOn() {
     if ( menuState !== 1 ) {
       menuState = 1;
       menu.classList.add(activeClassName);
-      classifyText.value = window.getSelection().toString();
+      classifyText.innerText = window.getSelection().toString();
     }
   }
 }
@@ -149,7 +149,7 @@ function labelButton(e){
   var labelCell = row.insertCell(1);
   var nameInput = document.createElement("INPUT");
   nameInput.setAttribute("type", "text");
-  nameInput.setAttribute("value", classifyText.value);
+  nameInput.setAttribute("value", classifyText.innerText);
   var labelInput = document.createElement("INPUT");
   labelInput.setAttribute("type", "text");
   labelInput.setAttribute("value", e.target.innerText);
@@ -173,6 +173,9 @@ function labelButton(e){
        dataType: 'json',
        async: false,
        });
+       if(name == row.cells[0].firstChild.getAttribute("value") && label == row.cells[1].firstChild.getAttribute("value")){
+         console.log(name+label);
+       }
    }
  }
 init();
