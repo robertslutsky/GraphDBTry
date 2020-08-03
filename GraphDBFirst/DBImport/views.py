@@ -50,3 +50,17 @@ def ajax_create_objects_ner(request):
                     entity.save()
                 return HttpResponse("Object Created")
         return HttpResponse("Are you lost")
+
+
+def json_of_ner_db(request):
+    train_data =[]
+    for article in Article.objects.all():
+        entity_list = []
+        for entity in article.entity_set.all():
+            quad = (entity.word, entity.label, entity.beginning_position, entity.end_position)
+            entity_list.append(quad)
+        article_pair = {"sentence": article.article_text, "data": entity_list}
+        train_data.append(article_pair)
+    with open('json-data.txt', 'w') as outfile:
+        json.dump(train_data, outfile)
+    return HttpResponse("woo")
