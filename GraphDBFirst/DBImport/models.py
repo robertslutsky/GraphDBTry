@@ -5,8 +5,9 @@ class Article(models.Model):
     article_text = models.TextField()
 
 
-class NLPObject(models.Model):
+class Entity(models.Model):
     article = models.ForeignKey(Article,on_delete=models.CASCADE)
     word = models.CharField(max_length=200)
-    beginningPos = models.IntegerField()
-    endPos = models.IntegerField()
+    label = models.CharField(max_length=200)
+    beginning_position = models.IntegerField()
+    end_position = models.IntegerField()

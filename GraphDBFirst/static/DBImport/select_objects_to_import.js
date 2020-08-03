@@ -16,14 +16,6 @@ var clickCoordsY;
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 
-/**
- * Initialise our application's code for the menu
- */
-function init() {
-  contextListener();
-  clickListener();
-  keyupListener();
-}
 
 function contextListener() {
   document.addEventListener( "contextmenu", function(e) {
@@ -145,6 +137,15 @@ function labelButton(e){
   e.preventDefault();
   var label = $(this).text();
   var row = objectTable.insertRow();
+  var anchorOffset = window.getSelection().anchorOffset;
+  var focusOffset = window.getSelection().focusOffset;
+  var start = Math.min(anchorOffset, focusOffset);
+  var end = Math.max(anchorOffset, focusOffset);
+  alert(start);
+  alert(end);
+  row.setAttribute("data-start",start);
+  row.setAttribute("data-end",end);
+
   var nameCell = row.insertCell(0);
   var labelCell = row.insertCell(1);
   var nameInput = document.createElement("INPUT");
@@ -159,30 +160,52 @@ function labelButton(e){
 
  function createObjectsInGraph(e){
   var objectLabelPairs = [];
+  var objectLabelQuads = [];
   for(var i = 1; i < objectTable.rows.length; i++){
     var row = objectTable.rows[i];
     var name = row.cells[0].firstChild.value;
     var label = row.cells[1].firstChild.value;
     objectLabelPairs.push([name,label]);
     if(name == row.cells[0].firstChild.getAttribute("value") && label == row.cells[1].firstChild.getAttribute("value")){
-      console.log(name+label);
+      objectLabelQuads.push([name, label, row.getAttribute("data-start"),row.getAttribute("data-end")])
     }
   }
   $.ajax({
     method: "POST",
     headers: { "X-CSRFToken": token },
-    url: '/import/ajax-create-objects',
+    url: '/DBImport/ajax-create-objects',
     data: {
       'object_label_pairs': JSON.stringify(objectLabelPairs),
     },
     dataType: 'json',
     async: false,
     });
+    $.ajax({
+      method: "POST",
+      headers: { "X-CSRFToken": token },
+      url: '/DBImport/ajax-create-objects-ner',
+      data: {
+        'object_label_quads': JSON.stringify(objectLabelQuads),
+        'text': text
+      },
+      dataType: 'json',
+      async: false,
+      });
+}
+/**
+ * Initialise our application's code for the menu
+ */
+function init() {
+  contextListener();
+  clickListener();
+  keyupListener();
+  document.getElementById('article').addEventListener("contextmenu", function(e){
+    e.preventDefault();
+    toggleMenuOn();
+  });
+  var articleText = document.createTextNode(text);
+  document.getElementById('article').appendChild(articleText);
+  document.querySelectorAll(".label-button ").forEach(item => item.addEventListener("click",labelButton));
+  document.getElementById("create-objects-button").addEventListener("click", createObjectsInGraph);
 }
 init();
-document.getElementById('article').addEventListener("contextmenu", function(e){
-  e.preventDefault();
-  toggleMenuOn();
-})
-document.querySelectorAll(".label-button ").forEach(item => item.addEventListener("click",labelButton));
-document.getElementById("create-objects-button").addEventListener("click", createObjectsInGraph);

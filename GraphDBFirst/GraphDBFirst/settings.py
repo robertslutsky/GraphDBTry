@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'import.apps.ImportConfig'
+    'DBImport.apps.DbimportConfig'
 ]
 #DataFlair #Django #Static files
 STATIC_URL = '/static/'

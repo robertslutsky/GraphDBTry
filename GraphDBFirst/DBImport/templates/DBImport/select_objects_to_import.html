@@ -2,7 +2,7 @@
 {% block title %}Upload{% endblock %}
 {% load static %}
 {% block content %}
-<pre id="article" class="article">{{text}}</pre>
+<div id="article" class="article"></div>
 <div>
   <table id="object-table">
     <tr>
@@ -26,6 +26,11 @@
     </form>
   </div>
 </nav>
-<script type="text/javascript" src="{% static 'import/select_objects_to_import.js'%}"></script>
-<link rel="stylesheet" type="text/css" href="{% static 'import/select_objects_to_import.css'%}" />
+<script type="text/javascript">
+    {% autoescape off %}
+    var text = "{{ text|escapejs }}"
+    {% endautoescape %}
+</script>
+<script type="text/javascript" src="{% static 'DBImport/select_objects_to_import.js'%}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'DBImport/select_objects_to_import.css'%}" />
 {% endblock %}
