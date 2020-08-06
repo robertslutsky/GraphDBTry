@@ -27,10 +27,11 @@ def select_objects_to_import(request):
 def ajax_create_objects(request):
     x = json.loads(request.POST["object_label_pairs"])
     if x:
+        stmt ="Create (n: Article)"
         for name, label in x:
-            stmt = "MERGE (n:"+label+" {name: \""+name+"\"})"
-            session.run(stmt)
-            session.close()
+            stmt += " with n MERGE (a:"+label+" {name: \""+name+"\"}) with a,n MERGE (n)-[:Source_Of]->(a)"
+        session.run(stmt)
+        session.close()
         return HttpResponse("Object Created")
     else:
         return HttpResponse("Are you lost")
