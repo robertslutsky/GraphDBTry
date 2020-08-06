@@ -6,7 +6,7 @@ Allows upload of txt files and for users to select and classify texts. This is p
 Some Requirements and Info as we were not able to upload to an EC2 instance so running must be done locally:
 Django 2.2.7
 Python 3
-Neo4j running locally with a database running with username: neo4j, password: password. This can be modified but must also modify driver in GraphDBFirst/GraphDBImport/views.py
+Neo4j running locally with a database running with username: neo4j, password: password. This can be modified, but you must also modify driver in GraphDBFirst/GraphDBImport/views.py
 
 To Run: 
 1. From in the directory with manage.py run the command: python manage.py runserver
