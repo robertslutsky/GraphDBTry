@@ -141,8 +141,6 @@ function labelButton(e){
   var focusOffset = window.getSelection().focusOffset;
   var start = Math.min(anchorOffset, focusOffset);
   var end = Math.max(anchorOffset, focusOffset);
-  alert(start);
-  alert(end);
   row.setAttribute("data-start",start);
   row.setAttribute("data-end",end);
 
