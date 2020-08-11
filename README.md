@@ -1,6 +1,7 @@
 # GUIGraphDB
 
-Beginnings of GUI
+Beginnings of a GUI to interact with a Graph DB in Neo4j and store information to train a NER Model
+
 Allows upload of txt files and for users to select and classify texts. This is put into a graph db for the knowledge graph and a relational db to store data to train a model for Named Entity Recognition.
 
 Some Requirements and Info as we were not able to upload to an EC2 instance so running must be done locally:
